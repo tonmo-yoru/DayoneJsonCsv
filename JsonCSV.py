@@ -9,8 +9,9 @@ with open('Journal.json', 'r', encoding='utf-8') as f:
 output_data = []
 
 for entry in data['entries']:
-    # 日付の取得
-    date = entry.get('creationDate', '')
+    # 日付の取得（'T'で分割して日付部分のみ抽出）
+    raw_date = entry.get('creationDate', '')
+    date = raw_date.split('T')[0] if 'T' in raw_date else raw_date
     
     # 本文を取得し、タイトルと内容に分割
     full_text = entry.get('text', '')
